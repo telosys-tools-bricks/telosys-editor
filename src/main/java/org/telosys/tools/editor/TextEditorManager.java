@@ -39,18 +39,48 @@ public class TextEditorManager {
 			textEditor.setCurrentDir(new File(homeDirectory));
 		}
 	}
+
+	/**
+	 * Just open the editor (without file to edit)
+	 */
+	public static void openEditor() {
+		initTextEditor(null) ;
+		textEditor.putOnFront();
+	}
 	
 	public static void editFile(File file) {
-		// If no current TextEditor create it
-		if ( textEditor == null ) {
-			File homeDir = getHomeDir(file);
-			textEditor = new TextEditor(homeDir);
-		}
+//		// If no current TextEditor create it
+//		if ( textEditor == null ) {
+//			File homeDir = getHomeDir(file);
+//			textEditor = new TextEditor(homeDir);
+//		}
+		initTextEditor(file) ;
 		// Use current TextEditor to edit the given file
 		textEditor.editFile(file); 
 		textEditor.putOnFront();
 	}
 
+	/**
+	 * Init the TextEditor (if no current TextEditor create it)
+	 * @param file
+	 */
+	private static void initTextEditor(File file) {
+		if ( textEditor == null ) { // not yet created
+			// try to determine the home directory 
+			File homeDir = null;
+			if ( homeDirectory != null ) {
+				homeDir = new File(homeDirectory);
+			}
+			else {
+				if ( file != null ) {
+					homeDir = getHomeDir(file);				
+				}
+			}
+			// Create the TextEditor instance
+			textEditor = new TextEditor(homeDir);
+		}
+	}
+	
 	private static File getHomeDir(File file) {
 		if ( homeDirectory != null ) {
 			// Home directory has been set before

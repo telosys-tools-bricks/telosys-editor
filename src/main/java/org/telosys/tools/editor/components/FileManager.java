@@ -53,6 +53,10 @@ public class FileManager {
 			showError("File is null");
 			return null;
 		}
+		if ( ! file.exists() ) {
+			showError("File not found\n"  + file.getAbsolutePath());
+			return null;
+		}
 		if ( ! file.isFile() ) {
 			showError("Not a file\n"  + file.getAbsolutePath());
 			return null;

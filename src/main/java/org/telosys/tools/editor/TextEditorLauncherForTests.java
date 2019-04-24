@@ -83,6 +83,10 @@ public class TextEditorLauncherForTests {
                     println("Exit!");
                     quit = true ;
                 }
+                else if ("".equals(input) ) {
+                    println("No file");
+                	TextEditorManager.editFile(null);
+                }
                 else {
                 	File file = getFile(input);
                 	println("Edit file " + file + "...");

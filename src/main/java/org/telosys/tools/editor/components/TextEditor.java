@@ -189,14 +189,20 @@ public class TextEditor extends JFrame {
 	 */
 	public void editFile(File file) {
 
-		int tabIndex = getFileTabIndex(file);
-
+		int tabIndex = -1 ;
+		if ( file != null ) {
+			tabIndex = getFileTabIndex(file);
+		}
+		
 		if (tabIndex >= 0) {
 			// Already open in a Tab => select this Tab
 			tabbedPane.setSelectedIndex(tabIndex);
 		} else {
 			// Not yet open => load it in a new Tab
-			String text = fileManager.readTextFromFile(file);
+			String text = null ;
+			if ( file != null ) {
+				 text = fileManager.readTextFromFile(file);
+			}
 			if (text != null) {
 
 				TxTextArea textArea = new TxTextArea(text);
