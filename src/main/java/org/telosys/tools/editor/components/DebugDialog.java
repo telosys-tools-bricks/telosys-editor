@@ -17,6 +17,8 @@ package org.telosys.tools.editor.components;
 
 import javax.swing.JOptionPane;
 
+import org.telosys.tools.editor.TextEditorContext;
+
 /**
  * About dialog box
  *
@@ -28,6 +30,9 @@ public class DebugDialog {
 		String title = "Debug";
 
 		String msg = "Debug information :" 
+				+ "\n"
+				+ "Home directory : " + TextEditorContext.getHomeDirectory()
+				+ "\n"
 				+ "\n"
 				+ "tabbedPane.getTabCount() : " + DebugVariables.tabbedPane.getTabCount()
 				+ "\n"

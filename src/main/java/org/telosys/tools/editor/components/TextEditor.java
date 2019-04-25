@@ -37,6 +37,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.telosys.tools.editor.TextEditorContext;
 import org.telosys.tools.editor.components.tabs.ButtonTabComponent;
 import org.telosys.tools.editor.components.textarea.TxDocumentListener;
 import org.telosys.tools.editor.components.textarea.TxScrollPane;
@@ -58,13 +59,10 @@ public class TextEditor extends JFrame {
 	private final JTabbedPane tabbedPane;
 	private final JLabel bottomLabel;
 
-	private File currentDir;
-
 	/**
 	 * Constructor 
-	 * @param initialDirectory the initial directory 
 	 */
-	public TextEditor(File initialDirectory) {
+	public TextEditor() {
 		super();
 
 		// Set Operating System Look & Feel
@@ -76,8 +74,6 @@ public class TextEditor extends JFrame {
 		}
 
 		frame = this;
-
-		currentDir = initialDirectory;
 
 		setSize(600, 600);
 		setLocationRelativeTo(null);
@@ -131,14 +127,6 @@ public class TextEditor extends JFrame {
 
 		// End of constructor : expose debug variables
 		DebugVariables.tabbedPane = this.tabbedPane;
-	}
-	
-	/**
-	 * Set the current directory (used by the 'FileChooser' for 'Open/Save as' 
-	 * @param currentDir
-	 */
-	public void setCurrentDir(File currentDir) {
-		this.currentDir = currentDir ;
 	}
 	
 	@Override
@@ -265,7 +253,7 @@ public class TextEditor extends JFrame {
 	}
 
 	protected void actionOpen() {
-		JFileChooser fileChooser = createFileChooser("Open file", "Open", currentDir);
+		JFileChooser fileChooser = createFileChooser("Open file", "Open", TextEditorContext.getHomeDirectoryFile());
 		int returnValue = fileChooser.showOpenDialog(this);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = fileChooser.getSelectedFile();
